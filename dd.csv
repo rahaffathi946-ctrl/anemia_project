@@ -1,0 +1,72 @@
+const form = document.getElementById("cbc-form");
+const resultBox = document.getElementById("result");
+const submitBtn = document.getElementById("submit-btn");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {};
+  new FormData(form).forEach((value, key) => { data[key] = value; });
+
+  const allEmpty = Object.values(data).every((v) => String(v).trim() === "");
+  if (allEmpty) {
+    renderError("الرجاء إدخال قيمة واحدة على الأقل قبل التحليل. جميع الحقول فارغة حالياً.");
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "جاري التحليل...";
+
+  try {
+    const res = await fetch("/api/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+
+    if (!json.ok) {
+      renderError(json.error || "تعذر إتمام التحليل.");
+    } else {
+      renderResult(json);
+    }
+  } catch (err) {
+    renderError("تعذر الاتصال بالخادم. حاول مرة أخرى.");
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "تحليل القيم بالذكاء الاصطناعي";
+  }
+});
+
+function renderResult(json) {
+  const rankingHtml = json.ranking.map(r => `
+    <div class="ranking-item">
+      <div class="ranking-row">
+        <span>${r.label}</span>
+        <span>${r.probability}%</span>
+      </div>
+      <div class="ranking-bar-bg">
+        <div class="ranking-bar-fill" style="width:${r.probability}%"></div>
+      </div>
+    </div>
+  `).join("");
+
+  resultBox.innerHTML = `
+    <div class="result-card">
+      <div class="result-top">
+        <span class="result-title">${json.diagnosis}</span>
+        <span class="result-confidence">ثقة النموذج: ${json.confidence}%</span>
+      </div>
+      <p class="result-note">${json.diagnosis_ar_note}</p>
+      <div class="ranking-list">${rankingHtml}</div>
+    </div>
+  `;
+  resultBox.classList.remove("hidden");
+  resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function renderError(message) {
+  resultBox.innerHTML = `<div class="error-card">⚠️ ${message}</div>`;
+  resultBox.classList.remove("hidden");
+  resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+}

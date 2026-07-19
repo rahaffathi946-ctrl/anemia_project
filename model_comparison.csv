@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أنيميا AI — تصنيف أنواع فقر الدم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-name">Anemia<em>AI</em></span>
+    </div>
+    <nav class="nav-links">
+      <a href="#home">الرئيسية</a>
+      <a href="#how">كيف يعمل؟</a>
+      <a href="#checker" class="nav-cta">ابدأ الفحص</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <span class="badge">🧬 مدعوم بالذكاء الاصطناعي · نموذج متعدد الأصناف</span>
+      <h1>تصنيف <span class="accent">نوع</span> فقر الدم من تحليل CBC</h1>
+      <p class="lede">
+        أدخل قيم تحليل الدم الكامل (CBC) واحصل خلال ثوانٍ على تصنيف دقيق بين
+        تسعة احتمالات — من فقر دم نقص الحديد إلى سرطان الدم — مبني على نموذج
+        Random Forest مدرَّب على حالات حقيقية.
+      </p>
+      <div class="hero-actions">
+        <a href="#checker" class="btn btn-primary">ابدأ الفحص الآن ←</a>
+        <a href="#how" class="btn btn-ghost">كيف يعمل؟</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong dir="ltr">{{ "%.0f"|format(97.98) }}%</strong><span>دقة الاختبار</span></div>
+        <div class="stat"><strong>٩</strong><span>تصنيفات تشخيصية</span></div>
+        <div class="stat"><strong>١٤</strong><span>مؤشر CBC</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-head">
+      <span class="eyebrow">لماذا هذا النموذج؟</span>
+      <h2>تشخيص متعدد المستويات، لا مجرد نعم أو لا</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🧠</span>
+        <h3>تصنيف تسعة أنواع</h3>
+        <p>يميّز النموذج بين فقر دم نقص الحديد، الأنيميا الضخمة الكريات، سرطان الدم، نقص الصفائح، وغيرها.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3>نتائج فورية</h3>
+        <p>أدخل القيم المتوفرة لديك واحصل على النسبة الاحتمالية لكل تصنيف خلال ثوانٍ.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔒</span>
+        <h3>خصوصية تامة</h3>
+        <p>التحليل يتم لحظياً في الخادم ولا تُخزَّن أي بيانات شخصية بعد إغلاق الصفحة.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>ترتيب الاحتمالات</h3>
+        <p>لا نكتفي بالتصنيف الأعلى — نعرض أفضل خمسة احتمالات مرتّبة بنسبها لفهم أعمق.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="section-head">
+      <span class="eyebrow">خطوات بسيطة</span>
+      <h2>كيف يعمل الفحص؟</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <h3>أدخل قيم CBC</h3>
+        <p>أدخل القيم المتوفرة من تحليل دمك — يمكنك ترك أي حقل فارغاً إن لم يكن متاحاً.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <h3>يحلل النموذج القيم</h3>
+        <p>نموذج Random Forest يقارن قيمك بآلاف الحالات المصنَّفة مسبقاً.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <h3>احصل على تقريرك</h3>
+        <p>تصنيف مرجّح مع نسبة الثقة وشرح مبسّط بالعربية، وتوصية بمراجعة الطبيب.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKER -->
+  <section class="checker" id="checker">
+    <div class="section-head">
+      <span class="eyebrow">الفحص الذكي</span>
+      <h2>أدخل قيم تحليل الدم الخاصة بك</h2>
+      <p class="section-sub">يمكنك إدخال القيم المتوفرة فقط — كل الحقول اختيارية، وكلما زادت القيم زادت دقة النتيجة.</p>
+    </div>
+
+    <form id="cbc-form" class="cbc-form">
+      <div class="field-grid">
+        {% for key, info in fields.items() %}
+        <div class="field">
+          <label for="{{ key }}">{{ info.label }}</label>
+          <div class="field-input">
+            <input type="number" step="any" id="{{ key }}" name="{{ key }}"
+                   placeholder="اختياري">
+            <span class="field-unit" dir="ltr">{{ info.unit }}</span>
+          </div>
+          <span class="field-range">طبيعي: <bdi dir="ltr">{{ info.range[0] }}–{{ info.range[1] }}</bdi></span>
+        </div>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+        تحليل القيم بالذكاء الاصطناعي
+      </button>
+    </form>
+
+    <div id="result" class="result hidden"></div>
+
+    <p class="disclaimer">
+      ⚠️ هذه الأداة للأغراض التثقيفية فقط وليست بديلاً عن الاستشارة الطبية.
+      يرجى مراجعة طبيبك المختص لأي قرار طبي.
+    </p>
+  </section>
+</main>
+
+<footer class="footer">
+  <strong>AnemiaAI</strong> — تصنيف ذكي لأنواع فقر الدم<br>
+  مدعوم بالذكاء الاصطناعي · نموذج Random Forest متعدد الأصناف<br>
+  <span class="footer-note">للأغراض التثقيفية فقط © 2026</span>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
