@@ -1,6 +1,1 @@
-__pycache__/
-*.pyc
-.venv/
-venv/
-.env
-*.egg-info/
+web: gunicorn app:app
